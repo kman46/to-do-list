@@ -4,7 +4,10 @@ import {TodoItems} from "./TodoItems";
 export const Todos = (props) => {
     return (
         <div>
-           <h3>TO-DOs-LIST</h3>
+           <h3 className="text-center my-3" >TO-DOs-LIST</h3>{/*center alignment and my-3 for space from above */}
+           {props.todos.map((todo)=>{
+                return <TodoItems todo={todo} key={todo.sno} onDelete={props.onDelete}/>    
+           })}
            <TodoItems todo={props.todos[0]}/>
         </div>
     )

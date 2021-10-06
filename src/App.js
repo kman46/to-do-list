@@ -9,7 +9,7 @@ function App() {
   let myVarible = 46;
   return (
     <>
-    <Header/>
+    <Header title="To-do-List"/>
     <Todos/>
     <br/>
     <Footer/>

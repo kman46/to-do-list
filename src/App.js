@@ -12,7 +12,12 @@ function App() {
       return e!==todo;
     }));
   }
-{/* setTodos is a function which will update ui everytime component is deleted */}
+  
+  const addTodo=(title,desc)=> {
+      console.log("added ToDo",title,desc);
+  }
+
+// setTodos is a function which will update ui everytime component is deleted 
   const [todos, setTodos] = useState([
     {
       sno: 1,
@@ -33,7 +38,7 @@ function App() {
   return (
     <>
     <Header title="To-do-List" searchBar={false}/>
-    <AddTodo/>
+    <AddTodo addTodo={addTodo}/>
     <Todos todos={todos} onDelete={onDelete}/> {/* defines 2 components to todos*/}
     <br/>
     <Footer/>

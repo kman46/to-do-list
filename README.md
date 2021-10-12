@@ -1,4 +1,8 @@
 # Simple to do list built using react
 
-This is a practce project which will be completed in a few days. i will update read me as I progress and make app useful.
+A TO DO's List app developed using React.
+
+The aim of this project is to create a responsive web application which stores your to-do-lists.
+
+
 

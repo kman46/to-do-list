@@ -15,6 +15,12 @@ function App() {
   
   const addTodo=(title,desc)=> {
       console.log("added ToDo",title,desc);
+      let sno=todos[todos.length-1].sno + 1;
+      const myTodo={
+        sno: sno,
+        title: title,
+        desc: desc,
+      }
   }
 
 // setTodos is a function which will update ui everytime component is deleted 
@@ -37,6 +43,7 @@ function App() {
   ]);
   return (
     <>
+    
     <Header title="To-do-List" searchBar={false}/>
     <AddTodo addTodo={addTodo}/>
     <Todos todos={todos} onDelete={onDelete}/> {/* defines 2 components to todos*/}

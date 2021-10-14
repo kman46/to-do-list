@@ -40,7 +40,6 @@ function App() {
     <Header title="To-do-List" searchBar={false}/>
     <AddTodo addTodo={addTodo}/>
     <Todos todos={todos} onDelete={onDelete}/> {/* defines 2 components to todos*/}
-    <br/>
     <Footer/>
     </>
   );

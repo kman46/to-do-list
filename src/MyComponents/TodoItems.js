@@ -2,7 +2,7 @@ import React from 'react'
 
 export const TodoItems = ({todo, onDelete}) => {
     let itemstyles={
-        width: "20%"
+        width: "40%"
     }
     return (
         <div className="card" style={itemstyles}>

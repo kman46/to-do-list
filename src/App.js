@@ -1,53 +1,60 @@
 import './App.css';
 import Header from "./MyComponents/Header";
-import {Todos} from "./MyComponents/Todos";
-import {AddTodo} from "./MyComponents/AddTodo";
-import {Footer} from "./MyComponents/Footer";
-import React, {useState} from 'react';
+import { Todos } from "./MyComponents/Todos";
+import { AddTodo } from "./MyComponents/AddTodo";
+import { Footer } from "./MyComponents/Footer";
+import React, { useState, useEffect } from 'react';
 //useState is used for state hooks
 function App() {
-  const onDelete=(todo) =>{
-    console.log("I am on ondelete of todo",todo);
-    setTodos(todos.filter((e)=>{
-      return e!==todo;
-    }));
+  let initTodo;
+  if (localStorage.getItem("todos") === null) {
+    initTodo = [];
   }
-  
-  const addTodo=(title,desc)=> {
-      console.log("added ToDo",title,desc);
-      let sno=todos[todos.length-1].sno + 1;
-      const myTodo={
-        sno: sno,
-        title: title,
-        desc: desc,
-      }
+  else {
+    initTodo = JSON.parse(localStorage.getItem("todos"));
+  }
+  const onDelete = (todo) => {
+    console.log("I am on ondelete of todo", todo);
+    setTodos(todos.filter((e) => {
+      return e !== todo;
+    }));
+    localStorage.getItem("todos", JSON.stringify(todos));
   }
 
-// setTodos is a function which will update ui everytime component is deleted 
-  const [todos, setTodos] = useState([
-    {
-      sno: 1,
-      title: "residence certificate",
-      desc: "apply for residence certificate"
-    },
-    {
-      sno: 2,
-      title: "internship certificate",
-      desc: "apply for internship certificate"
-    },
-    {
-      sno: 3,
-      title: "python certificate",
-      desc: "apply for python certificate"
+  const addTodo = (title, desc) => {
+    console.log("added ToDo : ", title, desc);
+    //
+    let sno;
+    if (todos.length === 0) {
+      sno = 0;
     }
-  ]);
+    else {
+      sno = todos[todos.length - 1].sno + 1;
+
+    }
+    const myTodo = {
+      sno: sno,
+      title: title,
+      desc: desc,
+    }
+    setTodos([...todos, myTodo]);
+    console.log(myTodo);
+  }
+
+  // setTodos is a function which will update ui everytime component is deleted 
+  const [todos, setTodos] = useState(initTodo);
+  //when todos is changes call this function
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos])
+
   return (
     <>
-    
-    <Header title="To-do-List" searchBar={false}/>
-    <AddTodo addTodo={addTodo}/>
-    <Todos todos={todos} onDelete={onDelete}/> {/* defines 2 components to todos*/}
-    <Footer/>
+
+      <Header title="To-do-List" searchBar={false} />
+      <AddTodo addTodo={addTodo} />
+      <Todos todos={todos} onDelete={onDelete} /> {/* defines 2 components to todos*/}
+      <Footer />
     </>
   );
 }

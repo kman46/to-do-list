@@ -3,8 +3,16 @@ import Header from "./MyComponents/Header";
 import { Todos } from "./MyComponents/Todos";
 import { AddTodo } from "./MyComponents/AddTodo";
 import { Footer } from "./MyComponents/Footer";
+import { About } from "./MyComponents/About";
 import React, { useState, useEffect } from 'react';
 //useState is used for state hooks
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
+
+
 function App() {
   let initTodo;
   if (localStorage.getItem("todos") === null) {
@@ -14,7 +22,6 @@ function App() {
     initTodo = JSON.parse(localStorage.getItem("todos"));
   }
   const onDelete = (todo) => {
-    console.log("I am on ondelete of todo", todo);
     setTodos(todos.filter((e) => {
       return e !== todo;
     }));
@@ -22,8 +29,6 @@ function App() {
   }
 
   const addTodo = (title, desc) => {
-    console.log("added ToDo : ", title, desc);
-    //
     let sno;
     if (todos.length === 0) {
       sno = 0;
@@ -38,7 +43,6 @@ function App() {
       desc: desc,
     }
     setTodos([...todos, myTodo]);
-    console.log(myTodo);
   }
 
   // setTodos is a function which will update ui everytime component is deleted 
@@ -50,11 +54,25 @@ function App() {
 
   return (
     <>
+      <Router>
+        <Header title="To-do-List" searchBar={false} />
+        <Switch>
+          <Route exact path="/" render={() => {
+            return (
+              <>
+                <AddTodo addTodo={addTodo} />
+                <Todos todos={todos} onDelete={onDelete} /> {/* defines 2 components to todos*/}
+              </>
+            )
+          }}>
+          </Route>
+          <Route exact path="/about">
+            <About />
+          </Route>
+        </Switch>
 
-      <Header title="To-do-List" searchBar={false} />
-      <AddTodo addTodo={addTodo} />
-      <Todos todos={todos} onDelete={onDelete} /> {/* defines 2 components to todos*/}
-      <Footer />
+        <Footer />
+      </Router>
     </>
   );
 }

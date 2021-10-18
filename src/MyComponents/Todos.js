@@ -13,7 +13,7 @@ export const Todos = (props) => {
                     No todos to display!!!
                 </div> :
                 props.todos.map((todo) => {
-                    return (<><TodoItems todo={todo} key={todo.sno} onDelete={props.onDelete} /><br /></>)
+                    return (<TodoItems todo={todo} key={todo.sno} onDelete={props.onDelete} />)
                 })}
         </div>
     )
